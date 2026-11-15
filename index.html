@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Nova Pro</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#07111f;color:#eaf3ff;font-family:Arial,sans-serif}
+header{background:#101f35;padding:22px 15px;text-align:center;border-bottom:2px solid #00d9ff}
+header h1{color:#00e5ff;margin:0;font-size:27px}
+header p{color:#aabbd0}
+nav{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:12px}
+button{background:#12304b;color:white;border:1px solid #00cfff;border-radius:10px;padding:13px;font-size:14px;cursor:pointer}
+button:hover{background:#07577a}
+main{padding:12px}
+.page{display:none}
+.page.active{display:block}
+.card{background:#10243b;padding:17px;border-radius:13px;margin-bottom:12px;border:1px solid #1c4966}
+h2{color:#00e5ff}
+h3{color:#6deaff}
+p{line-height:1.6;color:#d1deec}
+.option{display:block;width:100%;margin:8px 0;text-align:left}
+input{width:100%;padding:13px;margin:8px 0;background:#07111f;color:white;border:1px solid #00cfff;border-radius:8px}
+#result{color:#00e5ff;font-weight:bold}
+footer{text-align:center;color:#8299b1;padding:20px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<header>
+<h1>⚡ CYBER NOVA PRO</h1>
+<p>Cyber Security Learning Academy</p>
+</header>
+
+<nav>
+<button onclick="showPage('home')">🏠 Home</button>
+<button onclick="showPage('dashboard')">👤 Dashboard</button>
+<button onclick="showPage('login')">🔐 Login</button>
+<button onclick="showPage('signup')">📝 Signup</button>
+<button onclick="showPage('lessons')">📚 Lessons</button>
+<button onclick="showPage('network')">🌐 Networking</button>
+<button onclick="showPage('ethical')">🛡 Ethical Hacking</button>
+<button onclick="showPage('quiz')">🧠 Quiz</button>
+<button onclick="showPage('about')">ℹ About</button>
+</nav>
+
+<main>
+
+<section id="home" class="page active">
+<div class="card">
+<h2>Welcome to Cyber Nova Pro</h2>
+<p>Learn cyber security, networking and online safety step by step.</p>
+<button onclick="showPage('lessons')">Start Learning →</button>
+</div>
+<div class="card">
+<h3>📚 Lessons</h3>
+<p>Learn the basics of digital security.</p>
+</div>
+<div class="card">
+<h3>🧠 Quiz</h3>
+<p>Test your knowledge and check your score.</p>
+</div>
+</section>
+
+<section id="signup" class="page">
+<div class="card">
+<h2>Create Account</h2>
+<p>Enter a display name and password for this demo account.</p>
+<input id="newName" placeholder="Your Name" maxlength="40">
+<input id="newPass" type="password" placeholder="Create Password" maxlength="64">
+<button onclick="signup()">Create Account</button>
+<p id="signupMsg"></p>
+</div>
+</section>
+
+<section id="login" class="page">
+<div class="card">
+<h2>Login</h2>
+<input id="loginName" placeholder="Your Name" maxlength="40">
+<input id="loginPass" type="password" placeholder="Password" maxlength="64">
+<button onclick="login()">Login Now</button>
+<p id="loginMsg"></p>
+<p>Don't have an account?</p>
+<button onclick="showPage('signup')">Create Account</button>
+</div>
+</section>
+
+<section id="dashboard" class="page">
+<div class="card">
+<h2>User Dashboard</h2>
+<h3 id="welcomeUser">Welcome, Guest!</h3>
+<p>Account Status: <span id="accountStatus">Guest</span></p>
+<p>Quiz Best Score: <span id="bestScore">0</span></p>
+<button onclick="showPage('lessons')">Continue Learning</button>
+<button onclick="logout()">Logout</button>
+</div>
+</section>
+
+<section id="lessons" class="page">
+<h2>Cyber Security Lessons</h2>
+<div class="card"><h3>Lesson 1: Cyber Security</h3><p>Cyber security means protecting computers, phones, networks and data from digital threats.</p></div>
+<div class="card"><h3>Lesson 2: Strong Passwords</h3><p>Use long, unique passwords. Never share passwords or verification codes.</p></div>
+<div class="card"><h3>Lesson 3: Phishing</h3><p>Phishing is a trick used to steal information through fake messages or websites. Check links before opening them.</p></div>
+<div class="card"><h3>Lesson 4: Two-Factor Authentication</h3><p>2FA adds another security check when signing in to an account.</p></div>
+</section>
+
+<section id="network" class="page">
+<h2>Networking Course</h2>
+<div class="card"><h3>What is a Network?</h3><p>A network connects devices so they can communicate and share information.</p></div>
+<div class="card"><h3>IP Address</h3><p>An IP address identifies a device on a network.</p></div>
+<div class="card"><h3>DNS</h3><p>DNS helps translate website names into IP addresses.</p></div>
+<div class="card"><h3>Router</h3><p>A router connects different networks and directs data traffic.</p></div>
+</section>
+
+<section id="ethical" class="page">
+<h2>Ethical Hacking</h2>
+<div class="card"><h3>What is Ethical Hacking?</h3><p>Ethical hacking means testing security with permission to find and fix weaknesses.</p></div>
+<div class="card"><h3>Important Rules</h3><p>Always get written permission. Practise only on your own systems or authorised training labs.</p></div>
+<div class="card"><h3>Safe Learning</h3><p>Learn security concepts, password safety, defensive tools and responsible reporting.</p></div>
+</section>
+
+<section id="quiz" class="page">
+<h2>Cyber Security Quiz</h2>
+<div class="card">
+<p id="question"></p>
+<div id="options"></div>
+<p id="result"></p>
+<button id="next" onclick="nextQuestion()">Next Question →</button>
+</div>
+</section>
+
+<section id="about" class="page">
+<h2>About Cyber Nova Pro</h2>
+<div class="card">
+<p>Cyber Nova Pro is an educational platform for learning cyber security and digital safety.</p>
+<p>Version 2.0</p>
+<p>Learn Smart. Stay Secure.</p>
+</div>
+</section>
+
+</main>
+
+<footer>© 2026 Cyber Nova Pro | Learn Smart. Stay Secure.</footer>
+
+<script>
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+let currentUser=localStorage.getItem('cyberUser')||'';
+
+function signup(){
+let name=document.getElementById('newName').value.trim();
+let pass=document.getElementById('newPass').value;
+if(name.length<2||pass.length<6){
+document.getElementById('signupMsg').textContent='Enter a name and password of at least 6 characters.';
+return;
+}
+if(localStorage.getItem('cyberAccount')){
+document.getElementById('signupMsg').textContent='Demo account already exists on this device. Login instead.';
+return;
+}
+localStorage.setItem('cyberAccount',JSON.stringify({name:name,pass:pass}));
+document.getElementById('signupMsg').textContent='Account created! Please login.';
+}
+
+function login(){
+let name=document.getElementById('loginName').value.trim();
+let pass=document.getElementById('loginPass').value;
+let account=JSON.parse(localStorage.getItem('cyberAccount')||'null');
+if(account&&account.name===name&&account.pass===pass){
+currentUser=name;
+localStorage.setItem('cyberUser',name);
+updateDashboard();
+showPage('dashboard');
+}else{
+document.getElementById('loginMsg').textContent='Incorrect name or password.';
+}
+}
+
+function logout(){
+currentUser='';
+localStorage.removeItem('cyberUser');
+updateDashboard();
+showPage('home');
+}
+
+function updateDashboard(){
+document.getElementById('welcomeUser').textContent='Welcome, '+(currentUser||'Guest')+'!';
+document.getElementById('accountStatus').textContent=currentUser?'Logged In':'Guest';
+document.getElementById('bestScore').textContent=localStorage.getItem('cyberBest')||'0';
+}
+updateDashboard();
+
+const questions=[
+{q:"What does HTTPS help protect?",a:["Web connection","Phone battery","Screen brightness","Speaker"],c:0},
+{q:"What is phishing?",a:["A fake attempt to steal information","A computer game","A network cable","A backup"],c:0},
+{q:"What does 2FA mean?",a:["Two-Factor Authentication","Two File Access","Fast File App","Two Folder Accounts"],c:0},
+{q:"What does DNS do?",a:["Translates domain names","Charges phones","Edits pictures","Stores music"],c:0},
+{q:"Which password is safer?",a:["123456","password","A long unique password","Your first name"],c:2}
+];
+
+let index=0,score=0,answered=false;
+
+function loadQuestion(){
+answered=false;
+document.getElementById('result').textContent='';
+document.getElementById('next').textContent='Next Question →';
+let q=questions[index];
+document.getElementById('question').textContent='Question '+(index+1)+'/'+questions.length+': '+q.q;
+let html='';
+q.a.forEach((a,i)=>{
+html+='<button class="option" onclick="answer('+i+')">'+a+'</button>';
+});
+document.getElementById('options').innerHTML=html;
+}
+
+function answer(i){
+if(answered)return;
+answered=true;
+if(i===questions[index].c){
+score++;
+document.getElementById('result').textContent='Correct! ✓';
+}else{
+document.getElementById('result').textContent='Not quite. Correct answer: '+questions[index].a[questions[index].c];
+}
+}
+
+function nextQuestion(){
+if(!answered){
+document.getElementById('result').textContent='Please select an answer first.';
+return;
+}
+index++;
+if(index>=questions.length){
+document.getElementById('question').textContent='Quiz Completed!';
+document.getElementById('options').innerHTML='';
+document.getElementById('result').textContent='Your Score: '+score+'/'+questions.length;
+let best=Number(localStorage.getItem('cyberBest')||0);
+if(score>best)localStorage.setItem('cyberBest',score);
+updateDashboard();
+document.getElementById('next').textContent='Restart Quiz';
+document.getElementById('next').onclick=restartQuiz;
+return;
+}
+loadQuestion();
+}
+
+function restartQuiz(){
+index=0;score=0;
+document.getElementById('next').onclick=nextQuestion;
+loadQuestion();
+}
+loadQuestion();
+</script>
+</body>
+</html>
